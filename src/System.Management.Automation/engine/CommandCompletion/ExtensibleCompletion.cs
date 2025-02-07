@@ -187,7 +187,7 @@ namespace System.Management.Automation
         /// <summary>
         /// </summary>
         [Parameter(Mandatory = true)]
-        [AllowNull()]
+        [AllowNull]
         public ScriptBlock ScriptBlock { get; set; }
 
         /// <summary>
