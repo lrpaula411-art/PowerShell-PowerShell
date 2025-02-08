@@ -13,7 +13,7 @@ namespace System.Management.Automation
     /// This attribute is used to specify an argument completer for a parameter to a cmdlet or function.
     /// <example>
     /// <code>
-    ///     [Parameter()]
+    ///     [Parameter]
     ///     [ArgumentCompleter(typeof(NounArgumentCompleter))]
     ///     public string Noun { get; set; }
     /// </code>
@@ -240,7 +240,7 @@ namespace System.Management.Automation
     /// This attribute is used to specify an argument completions for a parameter of a cmdlet or function
     /// based on string array.
     /// <example>
-    ///     [Parameter()]
+    ///     [Parameter]
     ///     [ArgumentCompletions("Option1","Option2","Option3")]
     ///     public string Noun { get; set; }
     /// </example>
