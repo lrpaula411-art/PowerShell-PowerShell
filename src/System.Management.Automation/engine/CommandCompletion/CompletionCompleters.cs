@@ -5193,6 +5193,7 @@ namespace System.Management.Automation
             AttributesToSkip = 0 // Default is to skip Hidden and System files, so we clear this to retain existing behavior
         };
 
+#nullable enable
         internal static List<string> GetFileShares(string machine, bool ignoreHidden)
         {
 #if UNIX
@@ -5249,6 +5250,7 @@ namespace System.Management.Automation
             }
 #endif
         }
+#nullable restore
 
         private static bool CheckFileExtension(string path, HashSet<string> extension)
         {
