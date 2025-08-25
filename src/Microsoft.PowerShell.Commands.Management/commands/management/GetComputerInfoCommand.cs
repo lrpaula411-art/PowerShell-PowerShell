@@ -1141,32 +1141,6 @@ namespace Microsoft.PowerShell.Commands
 
             return culture?.Name;
         }
-
-        /// <summary>
-        /// Convert a Unix time, expressed in seconds, to a <see cref="DateTime"/>.
-        /// </summary>
-        /// <param name="seconds">Number of seconds since the Unix epoch.</param>
-        /// <returns>
-        /// A DateTime object representing the date and time represented by the
-        /// <paramref name="seconds"/> parameter.
-        /// </returns>
-        internal static DateTime UnixSecondsToDateTime(long seconds)
-        {
-#if false   // requires .NET 4.6 or higher
-            return DateTimeOffset.FromUnixTimeSeconds(seconds).DateTime;
-#else
-            const int DaysPerYear = 365;
-            const int DaysPer4Years = DaysPerYear * 4 + 1;
-            const int DaysPer100Years = DaysPer4Years * 25 - 1;
-            const int DaysPer400Years = DaysPer100Years * 4 + 1;
-            const int DaysTo1970 = DaysPer400Years * 4 + DaysPer100Years * 3 + DaysPer4Years * 17 + DaysPerYear;
-            const long UnixEpochTicks = TimeSpan.TicksPerDay * DaysTo1970;
-
-            long ticks = seconds * TimeSpan.TicksPerSecond + UnixEpochTicks;
-
-            return new DateTimeOffset(ticks, TimeSpan.Zero).DateTime;
-#endif
-        }
     }
 
     /// <summary>
@@ -1280,8 +1254,9 @@ namespace Microsoft.PowerShell.Commands
                         CurrentVersion = (string)key.GetValue("CurrentVersion"),
                         EditionId = (string)key.GetValue("EditionID"),
                         InstallationType = (string)key.GetValue("InstallationType"),
-                        InstallDate = temp == null ? (DateTime?)null
-                                                                : Conversion.UnixSecondsToDateTime((long)(int)temp),
+                        InstallDate = temp == null
+                            ? (DateTime?)null
+                            : DateTimeOffset.FromUnixTimeSeconds((long)(int)temp).DateTime,
                         ProductId = (string)key.GetValue("ProductId"),
                         ProductName = (string)key.GetValue("ProductName"),
                         RegisteredOrganization = (string)key.GetValue("RegisteredOrganization"),
