@@ -2878,7 +2878,7 @@ namespace Microsoft.PowerShell.Commands
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        internal class STARTUPINFO
+        internal sealed class STARTUPINFO
         {
             public int cb;
             public IntPtr lpReserved;
