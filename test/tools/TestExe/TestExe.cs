@@ -141,8 +141,7 @@ namespace TestExe
             string rawCmdLine = "N/A";
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                nint cmdLinePtr = Interop.GetCommandLineW();
-                rawCmdLine = Marshal.PtrToStringUni(cmdLinePtr)!;
+                rawCmdLine = Interop.GetCommandLine();
             }
 
             Console.WriteLine(rawCmdLine);
@@ -248,7 +247,7 @@ Other options are for specific tests only. Read source code for details.
 
     internal static partial class Interop
     {
-        [LibraryImport("Kernel32.dll")]
-        internal static partial nint GetCommandLineW();
+        [LibraryImport("Kernel32.dll", EntryPoint = "GetCommandLineW", StringMarshalling = StringMarshalling.Utf16)]
+        internal static partial string GetCommandLine();
     }
 }
